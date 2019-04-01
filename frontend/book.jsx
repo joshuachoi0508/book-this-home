@@ -14,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function Root() {
     return (
         <>
-            <BookThisHome />
+            <BookThisHome 
+                price={500}
+            />
         </>
     );
 }
