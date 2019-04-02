@@ -253,3 +253,35 @@ body {
     width: 50px;
     height: 50px;
 }
+
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 326px;
+    height: 20px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+.price-section:first-child {
+    margin-top: 20px;
+}
+
+.price-section-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2857142857142858em;
+    color: #484848;
+}
+
+.total-section-text {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2857142857142858em;
+    color: #484848;
+}
+
+.price-breakdown-div-no-show {
+    display: none;
+}

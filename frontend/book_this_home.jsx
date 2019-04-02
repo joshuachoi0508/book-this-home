@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
@@ -11,18 +12,23 @@ class BookThisHome extends React.Component {
             startDate: null,
             endDate: null,
             focusedInput: null,
-            openDropdown: 'hidden',
             numGuests: 1,
             numAdults: 1,
             numInfants: 0,
             numChildren: 0,
-            address: '',
-            guestOption: 'guest-option-divs-no-show'
+            guestOption: 'guest-option-divs-no-show',
+            priceBreakdownClass: 'price-breakdown-div-no-show'
         }
         this.renderGuestOption = this.renderGuestOption.bind(this);
         this.increaseGuestCount = this.increaseGuestCount.bind(this);
         this.decreaseGuestCount = this.decreaseGuestCount.bind(this);
     };
+
+    componentDidUpdate() {
+        if (this.state.endDate !== null && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
+            this.setState({ priceBreakdownClass: 'price-breakdown-div' })
+        }
+    }
 
     renderGuestCount() {
         if (this.state.numGuests > 1) {
@@ -86,21 +92,6 @@ class BookThisHome extends React.Component {
     }
 
     renderPlusButton(option) {
-        // if (option === "Adult") {
-        //     if (this.state.numGuests >= 2) {
-        //         return (<button
-        //             disabled={true}
-        //             className="guest-count-button disabled"
-        //             onClick={() => { this.increaseGuestCount("Adult") }}
-        //         >+</button>)
-        //     } else {
-        //         return (<button
-        //             className="guest-count-button"
-        //             onClick={() => { this.increaseGuestCount("Adult") }}
-        //         >+</button>)
-        //     }
-        // }
-
         if (this.state.numGuests >= 2) {
             if (option === "Adult") {
                 return (<button disabled={true} className="guest-count-button disabled">+</button>)
@@ -162,7 +153,21 @@ class BookThisHome extends React.Component {
         }
     }
 
+    renderNight(days) {
+        return days > 1 ? "nights" : "night";
+    }
+
     render(){
+        let startDate;
+        let endDate;
+        let diffDays;
+
+        if (this.state.startDate && this.state.endDate) {
+            startDate = new Date(this.state.startDate.format());
+            endDate = new Date(this.state.endDate.format());
+            diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
+        }
+        
         return(
             <div id="main-div">
                 <div className="price-and-review-div">
@@ -239,6 +244,32 @@ class BookThisHome extends React.Component {
                             <div className="guest-option-close-button-div">
                                 <button className="guest-option-close-button" onClick={this.renderGuestOption}>Close</button>
                             </div>
+                        </div>
+                    </div>
+                    <div className={this.state.priceBreakdownClass}>
+                        <div className="price-section">
+                            <span className="price-section-text">{this.props.price} x {diffDays} {this.renderNight(diffDays)}</span>
+                            <span className="price-section-text">${this.props.price * diffDays}</span>
+                        </div>
+                        <div className="divider"></div>
+                        <div className="price-section">
+                            <span className="price-section-text">Cealning fee</span>
+                            <span className="price-section-text">$75</span>
+                        </div>
+                        <div className="divider"></div>
+                        <div className="price-section">
+                            <span className="price-section-text">Service fee</span>
+                            <span className="price-section-text">$71</span>
+                        </div>
+                        <div className="divider"></div>
+                        <div className="price-section">
+                            <span className="price-section-text">Occupancy taxes and feest</span>
+                            <span className="price-section-text">$43</span>
+                        </div>
+                        <div className="divider"></div>
+                        <div className="price-section">
+                            <span className="total-section-text">Total</span>
+                            <span className="total-section-text">${this.props.price * diffDays + 75 + 71 + 43}</span>
                         </div>
                     </div>
                     <button className="book-button">Book</button>
