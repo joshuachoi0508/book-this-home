@@ -199,9 +199,7 @@ class BookThisHome extends React.Component {
                         <span>{this.renderGuestCount()}{this.renderInfantCount()}</span>
                         <img id="guest-down-button" src="images/down_arrow.png"></img>
                     </button>
-                    <div 
-                        className={this.state.guestOption}
-                    >
+                    <div className={this.state.guestOption} >
                         <div className="guest-option-div">
                             <div className="adult-option-div">
                                 <div className="adult-count-div">
@@ -242,6 +240,16 @@ class BookThisHome extends React.Component {
                                 <button className="guest-option-close-button" onClick={this.renderGuestOption}>Close</button>
                             </div>
                         </div>
+                    </div>
+                    <button className="book-button">Book</button>
+                    <span className="charge-description">You won't be charged yet</span>
+                    <div className="divider with-margin"></div>
+                    <div className="home-view-alert-div">
+                        <div className="home-view-description-div">
+                            <span className="people-mind">This home is on people's minds.</span>
+                            <span className="been-viewed">It’s been viewed 500+ times in the past week.</span>
+                        </div>
+                        <img className="light-bulb" src="https://a0.muscache.com/airbnb/static/page3/icon-uc-light-bulb-b34f4ddc543809b3144949c9e8cfcc8d.gif"></img>
                     </div>
                 </div>
             </div>
