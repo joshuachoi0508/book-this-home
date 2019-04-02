@@ -295,7 +295,7 @@ class BookThisHome extends React.Component {
                                 2 guests maximum. Infants don’t count toward the number of guests.
                             </p>
                             <div className="guest-option-close-button-div">
-                                <button className="guest-option-close-button" onClick={this.renderGuestOption}>Close</button>
+                                <button className="guest-option-close-button" onClick={(e) => {this.closeGuestOption(e)}}>Close</button>
                             </div>
                         </div>
                     </div>
