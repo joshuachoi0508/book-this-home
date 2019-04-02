@@ -34,9 +34,11 @@ class BookThisHome extends React.Component {
 
     renderInfantCount() {
         if (this.state.numInfants > 1) {
-            return String(this.state.numInfants) + " infants";
+            return ", " + String(this.state.numInfants) + " infants";
+        } else if (this.state.numInfants === 1) {
+            return ", " + String(this.state.numInfants) + " infant";
         } else {
-            return String(this.state.numInfants) + " infants";
+            return "";
         }
     }
 
@@ -79,6 +81,51 @@ class BookThisHome extends React.Component {
                     className="guest-count-button"
                     onClick={() => { this.decreaseGuestCount("Infant") }}
                 >-</button>)
+            }
+        }
+    }
+
+    renderPlusButton(option) {
+        // if (option === "Adult") {
+        //     if (this.state.numGuests >= 2) {
+        //         return (<button
+        //             disabled={true}
+        //             className="guest-count-button disabled"
+        //             onClick={() => { this.increaseGuestCount("Adult") }}
+        //         >+</button>)
+        //     } else {
+        //         return (<button
+        //             className="guest-count-button"
+        //             onClick={() => { this.increaseGuestCount("Adult") }}
+        //         >+</button>)
+        //     }
+        // }
+
+        if (this.state.numGuests >= 2) {
+            if (option === "Adult") {
+                return (<button disabled={true} className="guest-count-button disabled">+</button>)
+            } 
+
+            if (option === "Child") {
+                return (<button disabled={true} className="guest-count-button disabled">+</button>) 
+            }
+        }
+
+        if (this.state.numGuests < 2) {
+            if (option === "Adult") {
+                return (<button className="guest-count-button" onClick={() => { this.increaseGuestCount("Adult") }} >+</button>)
+            }
+
+            if (option === "Child") {
+                return (<button className="guest-count-button" onClick={() => { this.increaseGuestCount("Child") }} >+</button>)
+            }
+        }
+
+        if (option === "Infant") {
+            if (this.state.numInfants >= 5) {
+                return (<button disabled={true} className="guest-count-button disabled" onClick={() => { this.increaseGuestCount("Infant") }}>+</button>)
+            } else {
+                return (<button className="guest-count-button disabled" onClick={() => { this.increaseGuestCount("Infant") }} >+</button>)
             }
         }
     }
@@ -148,11 +195,8 @@ class BookThisHome extends React.Component {
                 </div>
                 <div className="guest-count-div">
                     <span className="option-name">Guests</span>
-                    <button 
-                        className="guest-button"
-                        onClick={this.renderGuestOption}
-                    >
-                        <span>{this.renderGuestCount()}, {this.renderInfantCount()}</span>
+                    <button className="guest-button" onClick={this.renderGuestOption}>
+                        <span>{this.renderGuestCount()}{this.renderInfantCount()}</span>
                         <img id="guest-down-button" src="images/down_arrow.png"></img>
                     </button>
                     <div 
@@ -166,10 +210,7 @@ class BookThisHome extends React.Component {
                                 <div className="count-button-div">
                                     {this.renderMinusButton("Adult")}
                                     <span className="guest-option-count">{this.state.numAdults}</span>
-                                    <button
-                                        className="guest-count-button"
-                                        onClick={() => {this.increaseGuestCount("Adult")}}
-                                    >+</button>
+                                    {this.renderPlusButton("Adult")}
                                 </div>
                             </div>
                             <div className="children-infant-option-div">
@@ -180,10 +221,7 @@ class BookThisHome extends React.Component {
                                 <div className="count-button-div">
                                     {this.renderMinusButton("Child")}
                                     <span className="guest-option-count">{this.state.numChildren}</span>
-                                    <button
-                                        className="guest-count-button"
-                                        onClick={() => { this.increaseGuestCount("Child") }}
-                                    >+</button>
+                                    {this.renderPlusButton("Child")}
                                 </div>
                             </div>
                             <div className="children-infant-option-div">
@@ -194,11 +232,14 @@ class BookThisHome extends React.Component {
                                 <div className="count-button-div">
                                     {this.renderMinusButton("Infant")}
                                     <span className="guest-option-count">{this.state.numInfants}</span>
-                                    <button
-                                        className="guest-count-button"
-                                        onClick={() => { this.increaseGuestCount("Infant") }}
-                                    >+</button>
+                                    {this.renderPlusButton("Infant")}
                                 </div>
+                            </div>
+                            <p className="guest-maxinum-description">
+                                2 guests maximum. Infants don’t count toward the number of guests.
+                            </p>
+                            <div className="guest-option-close-button-div">
+                                <button className="guest-option-close-button" onClick={this.renderGuestOption}>Close</button>
                             </div>
                         </div>
                     </div>
