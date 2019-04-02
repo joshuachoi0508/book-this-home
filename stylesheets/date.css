@@ -90,6 +90,10 @@ body {
     cursor: pointer;
 }
 
+.big {
+    height: 50px;
+}
+
 #guest-down-button {
     height: 18px;
 }
@@ -131,6 +135,26 @@ body {
 
 .guest-count-button:disabled {
     opacity: 0.5;
+}
+
+.guest-count-highlighted {
+    background-color: #99ede6;
+    border-color: #99ede6;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #007a87;
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+}
+
+.infant-count-highlighted {
+    background-color: #99ede6;
+    border-color: #99ede6;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #007a87;
+    cursor: pointer;
+    padding: 0.25em 0.5em;
 }
 
 .adult-option-div {

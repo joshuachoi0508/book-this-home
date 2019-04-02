@@ -17,7 +17,10 @@ class BookThisHome extends React.Component {
             numInfants: 0,
             numChildren: 0,
             guestOption: 'guest-option-divs-no-show',
-            priceBreakdownClass: 'price-breakdown-div-no-show'
+            priceBreakdownClass: 'price-breakdown-div-no-show',
+            guestButtonClass: 'guest-button',
+            guestCountClass: '',
+            infantCountClass: ''
         }
         this.renderGuestOption = this.renderGuestOption.bind(this);
         this.increaseGuestCount = this.increaseGuestCount.bind(this);
@@ -26,11 +29,10 @@ class BookThisHome extends React.Component {
 
     componentDidMount() {
         window.addEventListener('click', (e) => {
-            
             function childOfGuestOption (element) {
                 if (element.className === "guest-option-divs") {
                     return true;
-                } else if (element.id === "root") {
+                } else if (element.tagName === "HTML") {
                     return false;
                 } else {
                     return childOfGuestOption(element.parentElement);
@@ -44,7 +46,7 @@ class BookThisHome extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.state.endDate !== null && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
+        if (this.state.endDate !== null && this.state.startDate !== null && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
             this.setState({ priceBreakdownClass: 'price-breakdown-div' })
         }
     }
@@ -59,9 +61,9 @@ class BookThisHome extends React.Component {
 
     renderInfantCount() {
         if (this.state.numInfants > 1) {
-            return ", " + String(this.state.numInfants) + " infants";
+            return String(this.state.numInfants) + " infants";
         } else if (this.state.numInfants === 1) {
-            return ", " + String(this.state.numInfants) + " infant";
+            return String(this.state.numInfants) + " infant";
         } else {
             return "";
         }
@@ -69,15 +71,24 @@ class BookThisHome extends React.Component {
 
     renderGuestOption(e) {
         e.stopPropagation();
+        
         if (this.state.guestOption === 'guest-option-divs') {
             this.setState({ guestOption: 'guest-option-divs-no-show' })
+            this.setState({ guestButtonClass: 'guest-button' })
+            this.setState({ guestCountClass: '' })
+            this.setState({ infantCountClass: '' })
         } else {
-            this.setState({guestOption: 'guest-option-divs' })
+            this.setState({ guestOption: 'guest-option-divs' })
+            this.setState({ guestButtonClass: 'guest-button big'})
+            this.setState({ guestCountClass: 'guest-count-highlighted' })
         }
     }
 
     closeGuestOption(e) {
         this.setState({ guestOption: 'guest-option-divs-no-show' })
+        this.setState({ guestButtonClass: 'guest-button' })
+        this.setState({ guestCountClass: '' })
+        this.setState({ infantCountClass: '' })
     }
 
     renderMinusButton(option) {
@@ -157,7 +168,11 @@ class BookThisHome extends React.Component {
         }
 
         if (option === "Infant") {
-            this.setState({ numInfants: this.state.numInfants - 1 });
+            this.setState({ numInfants: this.state.numInfants - 1 }, () => {
+                if (this.state.numInfants === 0) {
+                    this.setState({ infantCountClass: '' })
+                }
+            })
         }
     }
 
@@ -165,20 +180,30 @@ class BookThisHome extends React.Component {
         if (option === "Adult") {
             this.setState({ numAdults: this.state.numAdults + 1 });
             this.setState({ numGuests: this.state.numGuests + 1 });
+            this.setState({ guestCountClass: 'guest-count-highlighted' })
         }
 
         if (option === "Child") {
             this.setState({ numChildren: this.state.numChildren + 1 });
             this.setState({ numGuests: this.state.numGuests + 1 });
+            this.setState({ guestCountClass: 'guest-count-highlighted' })
         }
 
         if (option === "Infant") {
             this.setState({ numInfants: this.state.numInfants + 1 });
+            this.setState({ guestCountClass: '' })
+            this.setState({ infantCountClass: 'infant-count-highlighted' })
         }
     }
 
     renderNight(days) {
         return days > 1 ? "nights" : "night";
+    }
+
+    renderComma() {
+        if (this.state.numInfants > 0) {
+            return ", "
+        };
     }
 
     render(){
@@ -224,8 +249,12 @@ class BookThisHome extends React.Component {
                 </div>
                 <div className="guest-count-div">
                     <span className="option-name">Guests</span>
-                    <button className="guest-button" onClick={(e) => {this.renderGuestOption(e)}}>
-                        <span>{this.renderGuestCount()}{this.renderInfantCount()}</span>
+                    <button className={this.state.guestButtonClass} onClick={(e) => {this.renderGuestOption(e)}}>
+                        <div className="guest-infant-count-div">
+                            <span className={this.state.guestCountClass}>{this.renderGuestCount()}</span>
+                            <span>{this.renderComma()}</span>
+                            <span className={this.state.infantCountClass}>{this.renderInfantCount()}</span>
+                        </div>
                         <img id="guest-down-button" src="images/down_arrow.png"></img>
                     </button>
                     <div className={this.state.guestOption} >
