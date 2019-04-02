@@ -188,7 +188,7 @@ class BookThisHome extends React.Component {
                         numberOfMonths={1}
                         hideKeyboardShortcutsPanel
                         regular
-                        showClearDates
+                        // showClearDates
                         startDatePlaceholderText="Check in"
                         endDatePlaceholderText="Check out"
                     />
