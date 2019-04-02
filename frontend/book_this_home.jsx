@@ -24,6 +24,25 @@ class BookThisHome extends React.Component {
         this.decreaseGuestCount = this.decreaseGuestCount.bind(this);
     };
 
+    componentDidMount() {
+        window.addEventListener('click', (e) => {
+            
+            function childOfGuestOption (element) {
+                if (element.className === "guest-option-divs") {
+                    return true;
+                } else if (element.id === "root") {
+                    return false;
+                } else {
+                    return childOfGuestOption(element.parentElement);
+                }
+            }
+
+            if (!childOfGuestOption(e.target)) {
+                this.closeGuestOption(e);
+            }
+        })
+    }
+
     componentDidUpdate() {
         if (this.state.endDate !== null && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
             this.setState({ priceBreakdownClass: 'price-breakdown-div' })
@@ -48,12 +67,17 @@ class BookThisHome extends React.Component {
         }
     }
 
-    renderGuestOption() {
+    renderGuestOption(e) {
+        e.stopPropagation();
         if (this.state.guestOption === 'guest-option-divs') {
             this.setState({ guestOption: 'guest-option-divs-no-show' })
         } else {
             this.setState({guestOption: 'guest-option-divs' })
         }
+    }
+
+    closeGuestOption(e) {
+        this.setState({ guestOption: 'guest-option-divs-no-show' })
     }
 
     renderMinusButton(option) {
@@ -200,7 +224,7 @@ class BookThisHome extends React.Component {
                 </div>
                 <div className="guest-count-div">
                     <span className="option-name">Guests</span>
-                    <button className="guest-button" onClick={this.renderGuestOption}>
+                    <button className="guest-button" onClick={(e) => {this.renderGuestOption(e)}}>
                         <span>{this.renderGuestCount()}{this.renderInfantCount()}</span>
                         <img id="guest-down-button" src="images/down_arrow.png"></img>
                     </button>
