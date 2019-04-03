@@ -1,8 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+
+import GuestCount from './guest_count';
+import PriceBreakdown from './price_breakdown';
 
 class BookThisHome extends React.Component {
     constructor(props) {
@@ -22,9 +24,16 @@ class BookThisHome extends React.Component {
             guestCountClass: '',
             infantCountClass: ''
         }
+        this.renderMinusButton = this.renderMinusButton.bind(this);
+        this.renderComma = this.renderComma.bind(this);
+        this.renderPlusButton = this.renderPlusButton.bind(this);
+        this.renderGuestCount = this.renderGuestCount.bind(this);
+        this.renderInfantCount = this.renderInfantCount.bind(this);
+        this.closeGuestOption = this.closeGuestOption.bind(this);
         this.renderGuestOption = this.renderGuestOption.bind(this);
         this.increaseGuestCount = this.increaseGuestCount.bind(this);
         this.decreaseGuestCount = this.decreaseGuestCount.bind(this);
+        this.renderNight = this.renderNight.bind(this);
     };
 
     componentDidMount() {
@@ -161,7 +170,6 @@ class BookThisHome extends React.Component {
             this.setState({ numAdults: this.state.numAdults - 1 });
             this.setState({ numGuests: this.state.numGuests - 1 });
         }
-
         if (option === "Child") {
             this.setState({ numChildren: this.state.numChildren - 1 });
             this.setState({ numGuests: this.state.numGuests - 1 });
@@ -240,101 +248,36 @@ class BookThisHome extends React.Component {
                         focusedInput={this.state.focusedInput}
                         onFocusChange={(focusedInput) => { this.setState({ focusedInput }); }}
                         numberOfMonths={1}
-                        hideKeyboardShortcutsPanel
-                        regular
-                        // showClearDates
                         startDatePlaceholderText="Check in"
                         endDatePlaceholderText="Check out"
                     />
                 </div>
-                <div className="guest-count-div">
-                    <span className="option-name">Guests</span>
-                    <button className={this.state.guestButtonClass} onClick={(e) => {this.renderGuestOption(e)}}>
-                        <div className="guest-infant-count-div">
-                            <span className={this.state.guestCountClass}>{this.renderGuestCount()}</span>
-                            <span>{this.renderComma()}</span>
-                            <span className={this.state.infantCountClass}>{this.renderInfantCount()}</span>
-                        </div>
-                        <img id="guest-down-button" src="images/down_arrow.png"></img>
-                    </button>
-                    <div className={this.state.guestOption} >
-                        <div className="guest-option-div">
-                            <div className="adult-option-div">
-                                <div className="adult-count-div">
-                                    <span className="guest-option-name">Adults</span>
-                                </div>
-                                <div className="count-button-div">
-                                    {this.renderMinusButton("Adult")}
-                                    <span className="guest-option-count">{this.state.numAdults}</span>
-                                    {this.renderPlusButton("Adult")}
-                                </div>
-                            </div>
-                            <div className="children-infant-option-div">
-                                <div className="children-infant-count-div">
-                                    <span className="guest-option-name">Children</span>
-                                    <span className="guest-option-description">Ages 2-12</span>
-                                </div>
-                                <div className="count-button-div">
-                                    {this.renderMinusButton("Child")}
-                                    <span className="guest-option-count">{this.state.numChildren}</span>
-                                    {this.renderPlusButton("Child")}
-                                </div>
-                            </div>
-                            <div className="children-infant-option-div">
-                                <div className="children-infant-count-div">
-                                    <span className="guest-option-name">Infants</span>
-                                    <span className="guest-option-description">Ages 2-12</span>
-                                </div>
-                                <div className="count-button-div">
-                                    {this.renderMinusButton("Infant")}
-                                    <span className="guest-option-count">{this.state.numInfants}</span>
-                                    {this.renderPlusButton("Infant")}
-                                </div>
-                            </div>
-                            <p className="guest-maxinum-description">
-                                2 guests maximum. Infants don’t count toward the number of guests.
-                            </p>
-                            <div className="guest-option-close-button-div">
-                                <button className="guest-option-close-button" onClick={(e) => {this.closeGuestOption(e)}}>Close</button>
-                            </div>
-                        </div>
+                <GuestCount 
+                    renderMinusButton={this.renderMinusButton}
+                    renderComma={this.renderComma}
+                    renderPlusButton={this.renderPlusButton}
+                    renderGuestCount={this.renderGuestCount}
+                    renderGuestOption={this.renderGuestOption}
+                    renderInfantCount={this.renderInfantCount}
+                    closeGuestOption={this.closeGuestOption}
+                    state={this.state}
+                />
+                <PriceBreakdown
+                    diffDays={diffDays}
+                    price={this.props.price}
+                    priceBreakdownClass={this.state.priceBreakdownClass}
+                    renderNight={this.renderNight}
+                    state={this.state}
+                />
+                <button className="book-button">Book</button>
+                <span className="charge-description">You won't be charged yet</span>
+                <div className="divider with-margin"></div>
+                <div className="home-view-alert-div">
+                    <div className="home-view-description-div">
+                        <span className="people-mind">This home is on people's minds.</span>
+                        <span className="been-viewed">It’s been viewed 500+ times in the past week.</span>
                     </div>
-                    <div className={this.state.priceBreakdownClass}>
-                        <div className="price-section">
-                            <span className="price-section-text">{this.props.price} x {diffDays} {this.renderNight(diffDays)}</span>
-                            <span className="price-section-text">${this.props.price * diffDays}</span>
-                        </div>
-                        <div className="divider"></div>
-                        <div className="price-section">
-                            <span className="price-section-text">Cealning fee</span>
-                            <span className="price-section-text">$75</span>
-                        </div>
-                        <div className="divider"></div>
-                        <div className="price-section">
-                            <span className="price-section-text">Service fee</span>
-                            <span className="price-section-text">$71</span>
-                        </div>
-                        <div className="divider"></div>
-                        <div className="price-section">
-                            <span className="price-section-text">Occupancy taxes and feest</span>
-                            <span className="price-section-text">$43</span>
-                        </div>
-                        <div className="divider"></div>
-                        <div className="price-section">
-                            <span className="total-section-text">Total</span>
-                            <span className="total-section-text">${this.props.price * diffDays + 75 + 71 + 43}</span>
-                        </div>
-                    </div>
-                    <button className="book-button">Book</button>
-                    <span className="charge-description">You won't be charged yet</span>
-                    <div className="divider with-margin"></div>
-                    <div className="home-view-alert-div">
-                        <div className="home-view-description-div">
-                            <span className="people-mind">This home is on people's minds.</span>
-                            <span className="been-viewed">It’s been viewed 500+ times in the past week.</span>
-                        </div>
-                        <img className="light-bulb" src="https://a0.muscache.com/airbnb/static/page3/icon-uc-light-bulb-b34f4ddc543809b3144949c9e8cfcc8d.gif"></img>
-                    </div>
+                    <img className="light-bulb" src="https://a0.muscache.com/airbnb/static/page3/icon-uc-light-bulb-b34f4ddc543809b3144949c9e8cfcc8d.gif"></img>
                 </div>
             </div>
         )
