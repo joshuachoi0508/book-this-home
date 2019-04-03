@@ -568,8 +568,7 @@ function (_React$Component) {
         diffDays: diffDays,
         price: this.props.price,
         priceBreakdownClass: this.state.priceBreakdownClass,
-        renderNight: this.renderNight,
-        state: this.state
+        renderNight: this.renderNight
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "book-button"
       }, "Book"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {

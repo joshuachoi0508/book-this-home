@@ -267,7 +267,6 @@ class BookThisHome extends React.Component {
                     price={this.props.price}
                     priceBreakdownClass={this.state.priceBreakdownClass}
                     renderNight={this.renderNight}
-                    state={this.state}
                 />
                 <button className="book-button">Book</button>
                 <span className="charge-description">You won't be charged yet</span>
