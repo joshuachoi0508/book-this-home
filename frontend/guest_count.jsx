@@ -4,6 +4,7 @@ const GuestCount = props => {
     return (
         <div className="guest-count-div">
             <span className="option-name">Guests</span>
+
             <button className={props.state.guestButtonClass} onClick={(e) => { props.renderGuestOption(e) }}>
                 <div className="guest-infant-count-div">
                     <span className={props.state.guestCountClass}>{props.renderGuestCount()}</span>
@@ -12,8 +13,10 @@ const GuestCount = props => {
                 </div>
                 <img id="guest-down-button" src="images/down_arrow.png"></img>
             </button>
+
             <div className={props.state.guestOption} >
                 <div className="guest-option-div">
+
                     <div className="adult-option-div">
                         <div className="adult-count-div">
                             <span className="guest-option-name">Adults</span>
@@ -24,6 +27,7 @@ const GuestCount = props => {
                             {props.renderPlusButton("Adult")}
                         </div>
                     </div>
+
                     <div className="children-infant-option-div">
                         <div className="children-infant-count-div">
                             <span className="guest-option-name">Children</span>
@@ -35,6 +39,7 @@ const GuestCount = props => {
                             {props.renderPlusButton("Child")}
                         </div>
                     </div>
+
                     <div className="children-infant-option-div">
                         <div className="children-infant-count-div">
                             <span className="guest-option-name">Infants</span>
@@ -46,9 +51,11 @@ const GuestCount = props => {
                             {props.renderPlusButton("Infant")}
                         </div>
                     </div>
+
                     <p className="guest-maxinum-description">
                         2 guests maximum. Infants don’t count toward the number of guests.
-                            </p>
+                    </p>
+                    
                     <div className="guest-option-close-button-div">
                         <button className="guest-option-close-button" onClick={(e) => { props.closeGuestOption(e) }}>Close</button>
                     </div>

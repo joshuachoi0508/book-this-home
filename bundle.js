@@ -211,7 +211,7 @@ function (_React$Component) {
       //it means the click was outside of the div and the div closes. 
       window.addEventListener('click', function (e) {
         if (!childOfGuestOption(e.target)) {
-          _this2.closeGuestOption(e);
+          _this2.closeGuestOption();
         }
 
         function childOfGuestOption(element) {
@@ -270,42 +270,26 @@ function (_React$Component) {
 
       if (this.state.guestOption === 'guest-option-divs') {
         this.setState({
-          guestOption: 'guest-option-divs-no-show'
-        });
-        this.setState({
-          guestButtonClass: 'guest-button'
-        });
-        this.setState({
-          guestCountClass: ''
-        });
-        this.setState({
+          guestOption: 'guest-option-divs-no-show',
+          guestButtonClass: 'guest-button',
+          guestCountClass: '',
           infantCountClass: ''
         });
       } else {
         this.setState({
-          guestOption: 'guest-option-divs'
-        });
-        this.setState({
-          guestButtonClass: 'guest-button big'
-        });
-        this.setState({
+          guestOption: 'guest-option-divs',
+          guestButtonClass: 'guest-button big',
           guestCountClass: 'guest-count-highlighted'
         });
       }
     }
   }, {
     key: "closeGuestOption",
-    value: function closeGuestOption(e) {
+    value: function closeGuestOption() {
       this.setState({
-        guestOption: 'guest-option-divs-no-show'
-      });
-      this.setState({
-        guestButtonClass: 'guest-button'
-      });
-      this.setState({
-        guestCountClass: ''
-      });
-      this.setState({
+        guestOption: 'guest-option-divs-no-show',
+        guestButtonClass: 'guest-button',
+        guestCountClass: '',
         infantCountClass: ''
       });
     }
@@ -385,7 +369,6 @@ function (_React$Component) {
 
       if (this.state.numGuests < 2) {
         if (option === "Adult") {
-          // too long
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "guest-count-button",
             onClick: function onClick() {
@@ -395,7 +378,6 @@ function (_React$Component) {
         }
 
         if (option === "Child") {
-          //
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "guest-count-button",
             onClick: function onClick() {
@@ -407,7 +389,6 @@ function (_React$Component) {
 
       if (option === "Infant") {
         if (this.state.numInfants >= 5) {
-          //
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             disabled: true,
             className: "guest-count-button disabled",
@@ -416,7 +397,6 @@ function (_React$Component) {
             }
           }, "+");
         } else {
-          //
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "guest-count-button disabled",
             onClick: function onClick() {
@@ -432,51 +412,34 @@ function (_React$Component) {
       var _this5 = this;
 
       if (option === "Adult") {
-        // make object and call setState once
         this.setState({
-          numAdults: this.state.numAdults - 1
-        });
-        this.setState({
-          numGuests: this.state.numGuests - 1
-        });
-        this.setState({
-          guestCountClass: 'guest-count-highlighted'
-        });
-        this.setState({
+          numAdults: this.state.numAdults - 1,
+          numGuests: this.state.numGuests - 1,
+          guestCountClass: 'guest-count-highlighted',
           infantCountClass: ''
         });
       }
 
       if (option === "Child") {
         this.setState({
-          numChildren: this.state.numChildren - 1
-        });
-        this.setState({
-          numGuests: this.state.numGuests - 1
-        });
-        this.setState({
-          guestCountClass: 'guest-count-highlighted'
-        });
-        this.setState({
+          numChildren: this.state.numChildren - 1,
+          numGuests: this.state.numGuests - 1,
+          guestCountClass: 'guest-count-highlighted',
           infantCountClass: ''
         });
       }
 
       if (option === "Infant") {
         this.setState({
-          numInfants: this.state.numInfants - 1
+          numInfants: this.state.numInfants - 1,
+          infantCountClass: 'infant-count-highlighted',
+          guestCountClass: ''
         }, function () {
           if (_this5.state.numInfants === 0) {
             _this5.setState({
               infantCountClass: ''
             });
           }
-        });
-        this.setState({
-          infantCountClass: 'infant-count-highlighted'
-        });
-        this.setState({
-          guestCountClass: ''
         });
       }
     }
@@ -485,42 +448,26 @@ function (_React$Component) {
     value: function increaseGuestCount(option) {
       if (option === "Adult") {
         this.setState({
-          numAdults: this.state.numAdults + 1
-        });
-        this.setState({
-          numGuests: this.state.numGuests + 1
-        });
-        this.setState({
-          guestCountClass: 'guest-count-highlighted'
-        });
-        this.setState({
+          numAdults: this.state.numAdults + 1,
+          numGuests: this.state.numGuests + 1,
+          guestCountClass: 'guest-count-highlighted',
           infantCountClass: ''
         });
       }
 
       if (option === "Child") {
         this.setState({
-          numChildren: this.state.numChildren + 1
-        });
-        this.setState({
-          numGuests: this.state.numGuests + 1
-        });
-        this.setState({
-          guestCountClass: 'guest-count-highlighted'
-        });
-        this.setState({
+          numChildren: this.state.numChildren + 1,
+          numGuests: this.state.numGuests + 1,
+          guestCountClass: 'guest-count-highlighted',
           infantCountClass: ''
         });
       }
 
       if (option === "Infant") {
         this.setState({
-          numInfants: this.state.numInfants + 1
-        });
-        this.setState({
-          guestCountClass: ''
-        });
-        this.setState({
+          numInfants: this.state.numInfants + 1,
+          guestCountClass: '',
           infantCountClass: 'infant-count-highlighted'
         });
       }
@@ -533,17 +480,14 @@ function (_React$Component) {
   }, {
     key: "renderComma",
     value: function renderComma() {
-      if (this.state.numInfants > 0) {
-        return ", ";
-      }
-
-      ;
+      if (this.state.numInfants > 0) return ", ";
     }
   }, {
     key: "render",
     value: function render() {
       var _this6 = this;
 
+      //logic for finding the days between end date and start date
       var startDate;
       var endDate;
       var diffDays;
@@ -552,8 +496,7 @@ function (_React$Component) {
         startDate = new Date(this.state.startDate.format());
         endDate = new Date(this.state.endDate.format());
         diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
-      } // break up jsx with spacing
-
+      }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "main-div"
