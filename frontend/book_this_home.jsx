@@ -37,7 +37,16 @@ class BookThisHome extends React.Component {
     };
 
     componentDidMount() {
+        //Appending event listener on the window for closing the guest option div.
+        //The childOfGuestOption function recursively calls the clicked element's parent.
+        //When the eventual parent is "ghest-option-divs", it doesn't close since 
+        //it means the click was within the div. If the eventual parent is an HTML tag
+        //it means the click was outside of the div and the div closes. 
         window.addEventListener('click', (e) => {
+            if (!childOfGuestOption(e.target)) {
+                this.closeGuestOption(e);
+            }
+
             function childOfGuestOption (element) {
                 if (element.className === "guest-option-divs") {
                     return true;
@@ -48,13 +57,18 @@ class BookThisHome extends React.Component {
                 }
             }
 
-            if (!childOfGuestOption(e.target)) {
-                this.closeGuestOption(e);
-            }
         })
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
+        //Logics for rendering the "price-breakdown-div". 
+        //If the startDate and endDate are chosen, the breakdown div shows.
+        //Otherwise, the breakdown div doesn't show
+
+        if (this.state.priceBreakdownClass === "price-breakdown-div" && (this.state.endDate === null || this.state.startDate === null)) {
+            this.setState({ priceBreakdownClass: 'price-breakdown-div-no-show' })
+        }
+
         if (this.state.endDate !== null && this.state.startDate !== null && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
             this.setState({ priceBreakdownClass: 'price-breakdown-div' })
         }
@@ -148,18 +162,22 @@ class BookThisHome extends React.Component {
 
         if (this.state.numGuests < 2) {
             if (option === "Adult") {
+                // too long
                 return (<button className="guest-count-button" onClick={() => { this.increaseGuestCount("Adult") }} >+</button>)
             }
 
             if (option === "Child") {
+                //
                 return (<button className="guest-count-button" onClick={() => { this.increaseGuestCount("Child") }} >+</button>)
             }
         }
 
         if (option === "Infant") {
             if (this.state.numInfants >= 5) {
+                //
                 return (<button disabled={true} className="guest-count-button disabled" onClick={() => { this.increaseGuestCount("Infant") }}>+</button>)
             } else {
+                //
                 return (<button className="guest-count-button disabled" onClick={() => { this.increaseGuestCount("Infant") }} >+</button>)
             }
         }
@@ -167,6 +185,7 @@ class BookThisHome extends React.Component {
 
     decreaseGuestCount(option) {
         if (option === "Adult") {
+            // make object and call setState once
             this.setState({ numAdults: this.state.numAdults - 1 });
             this.setState({ numGuests: this.state.numGuests - 1 });
             this.setState({ guestCountClass: 'guest-count-highlighted' })
@@ -233,7 +252,7 @@ class BookThisHome extends React.Component {
             endDate = new Date(this.state.endDate.format());
             diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
         }
-        
+        // break up jsx with spacing
         return(
             <div id="main-div">
                 <div className="price-and-review-div">
@@ -245,6 +264,7 @@ class BookThisHome extends React.Component {
                         <img id="review" src="images/review.png"></img>
                     </div>
                 </div>
+
                 <div className="divider"></div>
                 <div className="date-picker-div">
                     <span className="option-name">Dates</span>
@@ -261,6 +281,7 @@ class BookThisHome extends React.Component {
                         endDatePlaceholderText="Check out"
                     />
                 </div>
+
                 <GuestCount 
                     renderMinusButton={this.renderMinusButton}
                     renderComma={this.renderComma}
@@ -271,12 +292,14 @@ class BookThisHome extends React.Component {
                     closeGuestOption={this.closeGuestOption}
                     state={this.state}
                 />
+
                 <PriceBreakdown
                     diffDays={diffDays}
                     price={this.props.price}
                     priceBreakdownClass={this.state.priceBreakdownClass}
                     renderNight={this.renderNight}
                 />
+
                 <button className="book-button">Book</button>
                 <span className="charge-description">You won't be charged yet</span>
                 <div className="divider with-margin"></div>

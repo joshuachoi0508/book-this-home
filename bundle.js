@@ -204,7 +204,16 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      //Appending event listener on the window for closing the guest option div.
+      //The childOfGuestOption function recursively calls the clicked element's parent.
+      //When the eventual parent is "ghest-option-divs", it doesn't close since 
+      //it means the click was within the div. If the eventual parent is an HTML tag
+      //it means the click was outside of the div and the div closes. 
       window.addEventListener('click', function (e) {
+        if (!childOfGuestOption(e.target)) {
+          _this2.closeGuestOption(e);
+        }
+
         function childOfGuestOption(element) {
           if (element.className === "guest-option-divs") {
             return true;
@@ -214,15 +223,20 @@ function (_React$Component) {
             return childOfGuestOption(element.parentElement);
           }
         }
-
-        if (!childOfGuestOption(e.target)) {
-          _this2.closeGuestOption(e);
-        }
       });
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    value: function componentDidUpdate(prevProps, prevState) {
+      //Logics for rendering the "price-breakdown-div". 
+      //If the startDate and endDate are chosen, the breakdown div shows.
+      //Otherwise, the breakdown div doesn't show
+      if (this.state.priceBreakdownClass === "price-breakdown-div" && (this.state.endDate === null || this.state.startDate === null)) {
+        this.setState({
+          priceBreakdownClass: 'price-breakdown-div-no-show'
+        });
+      }
+
       if (this.state.endDate !== null && this.state.startDate !== null && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
         this.setState({
           priceBreakdownClass: 'price-breakdown-div'
@@ -371,6 +385,7 @@ function (_React$Component) {
 
       if (this.state.numGuests < 2) {
         if (option === "Adult") {
+          // too long
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "guest-count-button",
             onClick: function onClick() {
@@ -380,6 +395,7 @@ function (_React$Component) {
         }
 
         if (option === "Child") {
+          //
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "guest-count-button",
             onClick: function onClick() {
@@ -391,6 +407,7 @@ function (_React$Component) {
 
       if (option === "Infant") {
         if (this.state.numInfants >= 5) {
+          //
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             disabled: true,
             className: "guest-count-button disabled",
@@ -399,6 +416,7 @@ function (_React$Component) {
             }
           }, "+");
         } else {
+          //
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "guest-count-button disabled",
             onClick: function onClick() {
@@ -414,6 +432,7 @@ function (_React$Component) {
       var _this5 = this;
 
       if (option === "Adult") {
+        // make object and call setState once
         this.setState({
           numAdults: this.state.numAdults - 1
         });
@@ -533,7 +552,8 @@ function (_React$Component) {
         startDate = new Date(this.state.startDate.format());
         endDate = new Date(this.state.endDate.format());
         diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
-      }
+      } // break up jsx with spacing
+
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "main-div"
