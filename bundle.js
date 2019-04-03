@@ -420,6 +420,12 @@ function (_React$Component) {
         this.setState({
           numGuests: this.state.numGuests - 1
         });
+        this.setState({
+          guestCountClass: 'guest-count-highlighted'
+        });
+        this.setState({
+          infantCountClass: ''
+        });
       }
 
       if (option === "Child") {
@@ -428,6 +434,12 @@ function (_React$Component) {
         });
         this.setState({
           numGuests: this.state.numGuests - 1
+        });
+        this.setState({
+          guestCountClass: 'guest-count-highlighted'
+        });
+        this.setState({
+          infantCountClass: ''
         });
       }
 
@@ -440,6 +452,12 @@ function (_React$Component) {
               infantCountClass: ''
             });
           }
+        });
+        this.setState({
+          infantCountClass: 'infant-count-highlighted'
+        });
+        this.setState({
+          guestCountClass: ''
         });
       }
     }
@@ -456,6 +474,9 @@ function (_React$Component) {
         this.setState({
           guestCountClass: 'guest-count-highlighted'
         });
+        this.setState({
+          infantCountClass: ''
+        });
       }
 
       if (option === "Child") {
@@ -467,6 +488,9 @@ function (_React$Component) {
         });
         this.setState({
           guestCountClass: 'guest-count-highlighted'
+        });
+        this.setState({
+          infantCountClass: ''
         });
       }
 

@@ -169,10 +169,15 @@ class BookThisHome extends React.Component {
         if (option === "Adult") {
             this.setState({ numAdults: this.state.numAdults - 1 });
             this.setState({ numGuests: this.state.numGuests - 1 });
+            this.setState({ guestCountClass: 'guest-count-highlighted' })
+            this.setState({ infantCountClass: '' })
         }
+
         if (option === "Child") {
             this.setState({ numChildren: this.state.numChildren - 1 });
             this.setState({ numGuests: this.state.numGuests - 1 });
+            this.setState({ guestCountClass: 'guest-count-highlighted' })
+            this.setState({ infantCountClass: '' })
         }
 
         if (option === "Infant") {
@@ -181,6 +186,8 @@ class BookThisHome extends React.Component {
                     this.setState({ infantCountClass: '' })
                 }
             })
+            this.setState({ infantCountClass: 'infant-count-highlighted' })
+            this.setState({ guestCountClass: '' })
         }
     }
 
@@ -189,12 +196,14 @@ class BookThisHome extends React.Component {
             this.setState({ numAdults: this.state.numAdults + 1 });
             this.setState({ numGuests: this.state.numGuests + 1 });
             this.setState({ guestCountClass: 'guest-count-highlighted' })
+            this.setState({ infantCountClass: '' })
         }
 
         if (option === "Child") {
             this.setState({ numChildren: this.state.numChildren + 1 });
             this.setState({ numGuests: this.state.numGuests + 1 });
             this.setState({ guestCountClass: 'guest-count-highlighted' })
+            this.setState({ infantCountClass: '' })
         }
 
         if (option === "Infant") {
