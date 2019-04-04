@@ -38,7 +38,7 @@ For the calendar, I used react-dates API because it provides clean and easy-to-u
 
 2. Size of the main component
 
-  - As I built out more methods and elements, Book This Home component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down Book This Home component and made sub-components so that it could be read and edited easily.
+  - As I built out more methods and elements, Book This Home component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down Book This Home component and broke it down to sub-components so that they could be read and edited easily.
 
 3. Check in and check out time highlighting
 
