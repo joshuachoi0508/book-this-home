@@ -5,7 +5,9 @@ Live site: [Book This Home Component](https://joshuachoi0508.github.io/book-this
 Book This Home Component is a purely front-end application containing a home-booking component inspired by Airbnb.  
 
 ### Approach
-In order to clone Airbnb's component, I carefully examined the component using Chrome DevTools and studied react-dates API.
+In order to clone Airbnb's component, I broke it down go usable subcomponents. The main component, Book This Home Component, holds the state as well as methods. Since the state and methods are in one component, state change, editing existing method, and building new methods is convenient. Other subcomponents are broken down by their roles: Handling guest count, breaking down the total pricing, and showing confirmation. Since each component does one thing, it's easy to notice, edit, and add elements and implement further methods.
+
+For the calendar, I used react-dates API because it provides clean and easy-to-use calendar that could be easily implemented and manipulated.
 
 ### Challenges
 1. Closing of the guest-option-div
@@ -36,11 +38,11 @@ In order to clone Airbnb's component, I carefully examined the component using C
 
 2. Size of the main component
 
-  - As I built out more methods and elements, BookThiSHome component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down BookThisHome component and made two sub-components so that it could be read easily by me and other developers and changes could be made easily.
+  - As I built out more methods and elements, Book This Home component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down Book This Home component and made sub-components so that it could be read and edited easily.
 
 3. Check in and check out time highlighting
 
-  -   As I built out more methods and elements, BookThiSHome component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down BookThisHome component and made two sub-components so that it could be read easily by me and other developers and changes could be made easily.
+  -   As I built out more methods and elements, Book This Home component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down BookThisHome component and made two sub-components so that it could be read easily by me and other developers and changes could be made easily.
 
   ```css
   .DateInput_input__focused {
@@ -57,13 +59,7 @@ In order to clone Airbnb's component, I carefully examined the component using C
   }
   ```
 
-
-
-
-
-
-
-
+### Resources
 1. https://github.com/airbnb/react-with-styles
 2. https://github.com/airbnb/react-dates
 3. https://github.com/reactjs/react-modal
