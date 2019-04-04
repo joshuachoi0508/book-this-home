@@ -1,6 +1,6 @@
 # Production README
 
-Live site: [Book This Home Component](https://joshuachoi0508.github.io/book-this-home
+Live site: [BookThisHomeComponent](https://joshuachoi0508.github.io/book-this-home
 
 Book This Home Component is a purely front-end application containing a home-booking component inspired by Airbnb.  
 
