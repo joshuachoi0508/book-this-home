@@ -226,6 +226,8 @@ function (_React$Component) {
         }
 
         function childOfGuestOption(element) {
+          if (element === null) return false;
+
           if (element.className === "guest-option-divs") {
             return true;
           } else if (element.tagName === "HTML") {
@@ -579,7 +581,8 @@ function (_React$Component) {
         id: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
         isOpen: this.state.showModal,
-        contentLabel: "Minimal Modal Example"
+        contentLabel: "Minimal Modal Example",
+        ariaHideApp: false
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_confirmation__WEBPACK_IMPORTED_MODULE_7__["default"], {
         closeModal: this.handleCloseModal,
         startDate: this.state.startDate,

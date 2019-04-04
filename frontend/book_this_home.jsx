@@ -57,6 +57,8 @@ class BookThisHome extends React.Component {
             }
 
             function childOfGuestOption (element) {
+                if (element === null)  return false;
+
                 if (element.className === "guest-option-divs") {
                     return true;
                 } else if (element.tagName === "HTML") {
@@ -346,6 +348,7 @@ class BookThisHome extends React.Component {
                 <Modal 
                     isOpen={this.state.showModal}
                     contentLabel="Minimal Modal Example"
+                    ariaHideApp={false}
                 >
                     <Confirmation 
                         closeModal={this.handleCloseModal}
