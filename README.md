@@ -10,7 +10,7 @@ In order to clone Airbnb's component, I carefully examined the component using C
 ### Challenges
 1. Closing of the guest-option-div
 
-   guest-option-div has to stay open when clicked anywhere inside the div but close when clicked anywhere outside of the div. In order to implement this feature, inside componentDidMount, I appended an event listener to the window to listen to any click and close the guest-option-div as long as it's not a child of the guest-option-div
+   - guest-option-div has to stay open when clicked anywhere inside the div but close when clicked anywhere outside of the div. In order to implement this feature, inside componentDidMount, I appended an event listener to the window to listen to any click and close the guest-option-div as long as it's not a child of the guest-option-div
 
  ```javascript
  window.addEventListener('click', (e) => {
@@ -35,11 +35,11 @@ In order to clone Airbnb's component, I carefully examined the component using C
 
 2. Size of the main component
 
-  As I built out more methods and elements, BookThiSHome component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down BookThisHome component and made two sub-components so that it could be read easily by me and other developers and changes could be made easily.
+  - As I built out more methods and elements, BookThiSHome component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down BookThisHome component and made two sub-components so that it could be read easily by me and other developers and changes could be made easily.
 
 3. Check in and check out time highlighting
 
-  react-dates component came with a pre-made CSS file. The default styling for selecting check-in or check-out input field was underlining and not highlighting. In order to change the styling, I used Chrome DevTools to inspect Airbnb's actual book this home component. By doing so, I was able go into react-dates' pre-made CSS file and append right styling in order to achieve check-in and check-out focus highlighting.
+  -   As I built out more methods and elements, BookThiSHome component got massive and codes became harder to read. In order to minimize the component and make the codes more readable, I broke down BookThisHome component and made two sub-components so that it could be read easily by me and other developers and changes could be made easily.
 
   ```css
   .DateInput_input__focused {
