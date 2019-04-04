@@ -1,4 +1,6 @@
-# README
+# Production README
+
+Live site: [Book-This-Home](https://joshuachoi0508.github.io/book-this-home/)
 
 1. https://github.com/airbnb/react-with-styles
 2. https://github.com/airbnb/react-dates
