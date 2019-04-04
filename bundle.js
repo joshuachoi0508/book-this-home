@@ -62523,7 +62523,8 @@ Modal.defaultStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(6, 6, 6, 0.89)"
+    backgroundColor: "rgba(6, 6, 6, 0.89)",
+    overflow: "overlay"
   },
   content: {
     position: "absolute",
