@@ -574,13 +574,13 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "main-div"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.handleOpenModal
-      }, "Trigger Modal"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
         isOpen: this.state.showModal,
         contentLabel: "Minimal Modal Example"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_confirmation__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        closeModal: this.handleCloseModal
+        closeModal: this.handleCloseModal,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "price-and-review-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -682,6 +682,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Confirmation = function Confirmation(props) {
+  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "confirmation-div"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -716,17 +718,17 @@ var Confirmation = function Confirmation(props) {
     className: "check-in-div"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "travel-date"
-  }, "Wednesday,"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, days[props.startDate.day()], ","), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "travel-date"
-  }, "Aug 08, 2018"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, months[props.startDate.month()], "\xA0", props.startDate.date(), ",\xA0", props.startDate.year()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "check-in-out-info"
   }, "Check-in time is 3PM - 10PM")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "check-out-div"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "travel-date"
-  }, "Friday,"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, days[props.endDate.day()], ","), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "travel-date"
-  }, "Aug 10, 2018"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, months[props.endDate.month()], "\xA0", props.endDate.date(), ",\xA0", props.endDate.year()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "check-in-out-info"
   }, "Flexible check out time"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: props.closeModal,

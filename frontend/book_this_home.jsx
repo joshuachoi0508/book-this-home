@@ -340,13 +340,14 @@ class BookThisHome extends React.Component {
         return(
             <div id="main-div">
 
-                <button onClick={this.handleOpenModal}>Trigger Modal</button>
                 <Modal 
                     isOpen={this.state.showModal}
                     contentLabel="Minimal Modal Example"
                 >
                     <Confirmation 
                         closeModal={this.handleCloseModal}
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
                     />
                 </Modal>
 
