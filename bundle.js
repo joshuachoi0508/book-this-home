@@ -281,13 +281,15 @@ function (_React$Component) {
           }
         });
       }
-    }
+    } //style change for main-div so main-div's scroll doesn't overlap with the modal's scroll
+
   }, {
     key: "handleOpenModal",
     value: function handleOpenModal() {
       this.setState({
         showModal: true
       });
+      document.getElementById('main-div').style.display = "none";
     }
   }, {
     key: "handleCloseModal",
@@ -295,6 +297,7 @@ function (_React$Component) {
       this.setState({
         showModal: false
       });
+      document.getElementById('main-div').style.display = "block";
     }
   }, {
     key: "renderGuestCount",

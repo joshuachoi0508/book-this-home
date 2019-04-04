@@ -110,12 +110,15 @@ class BookThisHome extends React.Component {
         }
     }
 
+    //style change for main-div so main-div's scroll doesn't overlap with the modal's scroll
     handleOpenModal() {
         this.setState({ showModal: true });
+        document.getElementById('main-div').style.display = "none";
     }
     
     handleCloseModal() {
         this.setState({ showModal: false });
+        document.getElementById('main-div').style.display = "block";
     }
 
     renderGuestCount() {
