@@ -10,7 +10,7 @@ import Confirmation from './confirmation'
 
 class BookThisHome extends React.Component {
     constructor(props) {
-        super(props);
+        super(props);4
         this.state = {
             input: '',
             startDate: null,

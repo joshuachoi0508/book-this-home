@@ -176,6 +176,7 @@ function (_React$Component) {
     _classCallCheck(this, BookThisHome);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(BookThisHome).call(this, props));
+    4;
     _this.state = {
       input: '',
       startDate: null,
