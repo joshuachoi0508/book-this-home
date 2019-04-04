@@ -2,9 +2,11 @@ import React from 'react';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import Modal from 'react-modal';
 
 import GuestCount from './guest_count';
 import PriceBreakdown from './price_breakdown';
+import Confirmation from './confirmation'
 
 class BookThisHome extends React.Component {
     constructor(props) {
@@ -22,7 +24,9 @@ class BookThisHome extends React.Component {
             priceBreakdownClass: 'price-breakdown-div-no-show',
             guestButtonClass: 'guest-button',
             guestCountClass: '',
-            infantCountClass: ''
+            infantCountClass: '',
+            showModal: false,
+            errors: []
         }
         this.renderMinusButton = this.renderMinusButton.bind(this);
         this.renderComma = this.renderComma.bind(this);
@@ -34,6 +38,11 @@ class BookThisHome extends React.Component {
         this.increaseGuestCount = this.increaseGuestCount.bind(this);
         this.decreaseGuestCount = this.decreaseGuestCount.bind(this);
         this.renderNight = this.renderNight.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderErrors = this.renderErrors.bind(this);
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     };
 
     componentDidMount() {
@@ -74,6 +83,39 @@ class BookThisHome extends React.Component {
             && this.state.priceBreakdownClass === "price-breakdown-div-no-show") {
             this.setState({ priceBreakdownClass: 'price-breakdown-div' })
         }
+
+        //clear error messages when check in and check out dates are entered
+        if (prevState.errors.length > 0 && this.state.endDate && this.state.startDate) {
+            this.setState({ errors: [] })
+        }
+
+        //Event listener for modal to close when clicked outside of the confirmation modal
+        if (document.querySelector(".ReactModal__Overlay")) {
+            
+            document.querySelector(".ReactModal__Overlay")
+            .addEventListener('click', (e) => {
+                function childOfConfirmationDiv(element) {
+                    if (element.className === "confirmation-div") {
+                        return true;
+                    } else if (element.tagName === "HTML") {
+                        return false;
+                    } else {
+                        return childOfConfirmationDiv(element.parentElement);
+                    }
+                }
+                if (!childOfConfirmationDiv(e.target)) {
+                    this.handleCloseModal();
+                }
+            })
+        }
+    }
+
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+    
+    handleCloseModal() {
+        this.setState({ showModal: false });
     }
 
     renderGuestCount() {
@@ -268,6 +310,22 @@ class BookThisHome extends React.Component {
         if (this.state.numInfants > 0) return ", ";
     }
 
+    handleSubmit() {
+        if (this.state.startDate && this.state.endDate) {
+            this.handleOpenModal();
+        } else {
+            this.setState({ errors: ["Plead enter check in and check out date"] })
+        }
+    }
+
+    renderErrors() {
+        return (
+            this.state.errors.map(error => (
+                <span className="error-messages" key={"error" + error}>{error}</span>
+            ))
+        )
+    }
+
     render(){
         //logic for finding the days between end date and start date
         let startDate;
@@ -281,6 +339,17 @@ class BookThisHome extends React.Component {
         }
         return(
             <div id="main-div">
+
+                <button onClick={this.handleOpenModal}>Trigger Modal</button>
+                <Modal 
+                    isOpen={this.state.showModal}
+                    contentLabel="Minimal Modal Example"
+                >
+                    <Confirmation 
+                        closeModal={this.handleCloseModal}
+                    />
+                </Modal>
+
                 <div className="price-and-review-div">
                     <div className="price-div">
                         <span className="price">${this.props.price}</span>
@@ -326,8 +395,13 @@ class BookThisHome extends React.Component {
                     renderNight={this.renderNight}
                 />
 
-                <button className="book-button">Book</button>
+                <button className="book-button" onClick={this.handleSubmit}>Book</button>
                 <span className="charge-description">You won't be charged yet</span>
+
+                <div className="error-messages-div">
+                    {this.renderErrors()}
+                </div>
+
                 <div className="divider with-margin"></div>
                 <div className="home-view-alert-div">
                     <div className="home-view-description-div">

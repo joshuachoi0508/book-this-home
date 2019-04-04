@@ -31,6 +31,7 @@ const Confirmation = props => {
                                 Entire Home hosted by Josh Choi
                             </span>
                         </div>
+
                         <div className="check-in-out-div">
                             <div className="check-in-div">
                                 <span className="travel-date">Wednesday,</span>
@@ -43,8 +44,13 @@ const Confirmation = props => {
                                 <span className="check-in-out-info">Flexible check out time</span>
                             </div>
                         </div>
+
                     </div>
                 </div>
+                <button 
+                    onClick={props.closeModal}
+                    className="close-modal-button">
+                Close</button>
             </div>
         </>
     )
