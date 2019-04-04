@@ -115,6 +115,7 @@
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 5px;
+    background-color: #f9f9f9
 }
 
 .close-modal-button:hover {
