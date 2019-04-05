@@ -51,11 +51,11 @@ For the calendar, I used react-dates API because it provides clean and easy-to-u
     background: #fff;
     border: 0;
     border-top: 0;
-    padding: 4px 6px !important;
-    overflow: hidden !important;
-    background: rgb(153, 237, 230) !important;
-    border-color: rgb(153, 237, 230) !important;
-    border-radius: 3px !important;
+    padding: 4px 6px;
+    overflow: hidden;
+    background: rgb(153, 237, 230);
+    border-color: rgb(153, 237, 230);
+    border-radius: 3px;
   }
   ```
 
