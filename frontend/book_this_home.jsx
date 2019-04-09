@@ -344,7 +344,7 @@ class BookThisHome extends React.Component {
         }
         return(
             <div id="main-div">
-
+                <link rel="prefetch" href="images/home.jpg"></link>
                 <Modal 
                     isOpen={this.state.showModal}
                     contentLabel="Minimal Modal Example"
